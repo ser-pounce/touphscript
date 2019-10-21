@@ -1,0 +1,29 @@
+#include <Winver.h>
+
+#define UK_ENG_UNICODE "080904B0"
+#define UK_ENG 0x809
+#define RC_UNICODE 0x4B0
+#define TOUPHSCRIPT_ICON 666
+
+VS_VERSION_INFO	VERSIONINFO
+FILEVERSION 1,3,0,0
+PRODUCTVERSION 1,3,0,0
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_APP {
+	BLOCK "StringFileInfo" {
+		BLOCK UK_ENG_UNICODE {
+			VALUE "CompanyName", "Luksy"
+      VALUE "FileDescription", "FFVII text editor"
+      VALUE "FileVersion", "1.3.0"
+      VALUE "InternalName", "touphScript"
+      VALUE "OriginalFilename", "touphScript.exe"
+      VALUE "ProductName", "touphScript"
+      VALUE "ProductVersion", "1.3.0"
+		}
+	}
+	BLOCK "VarFileInfo" {
+		VALUE "Translation", UK_ENG, RC_UNICODE
+	}
+}
+
+TOUPHSCRIPT_ICON ICON "touphScript.ico"
