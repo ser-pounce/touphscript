@@ -13,7 +13,11 @@ class section0 {
 public:
 	explicit section0(byteVec const& buf);
 	byteVec2d const& operator[](u8 const i) const { return (*this)[i]; }
-	byteVec2d& operator[](u8 const i) { return scripts.at(i); }
+	byteVec2d& operator[](u8 const i) {
+		if (i < scripts.size())
+			return scripts[i];
+		throw runErr{"invalid script index: " + std::to_string(i)};
+	}
 	byteVec getScript() const;
 	entSet const& getPcs() const { return pcs; }
 	entSet const& getMods() const { return mods; }

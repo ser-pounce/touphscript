@@ -1077,9 +1077,6 @@ byteVec getSpacingTable() {
 		clog << "Error creating spacing table\n";
 	}
 
-	std::cout << spacing.size();
-	for (auto s : spacing)
-		std::cout << std::hex << static_cast<int>(s) << " ";
 	return spacing;
 }
 
