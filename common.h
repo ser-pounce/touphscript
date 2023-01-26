@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <functional>
 #include <fstream>
 #include <vector>
 #include <string>
@@ -42,13 +43,13 @@ typedef std::runtime_error runErr;
 
 inline string& ltrim(string& s) {
 	s.erase(s.begin(), find_if(s.begin(), s.end(),
-		std::not1(std::ptr_fun<int, int>(std::isspace))));
+		std::not_fn(::isspace)));
 	return s;
 }
 
 inline string& rtrim(string& s) {
 	s.erase(find_if(s.rbegin(), s.rend(),
-		std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+		std::not_fn(::isspace)).base(), s.end());
 	return s;
 }
 
