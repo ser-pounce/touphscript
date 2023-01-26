@@ -10,6 +10,7 @@
 #include "kernel2.h"
 #include "ff7exe.h"
 #include "windowBin.h"
+#include <array>
 #include <exception>
 #include <map>
 #include <Shlwapi.h>
@@ -1085,7 +1086,7 @@ byteVec getSpacingTable() {
 std::string const getFFPath() {
 
   HKEY key;
-  std::array<BYTE, MAX_PATH> val{};
+  std::array<unsigned char, 260> val{};
   DWORD sz = MAX_PATH;
 
   static const std::array<std::string, 3> regStrings{

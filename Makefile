@@ -7,16 +7,17 @@ OBJECTS  := $(SOURCES:.cpp=.o) $(TARGET).res
 
 DEP      := make.dep
 
-CXX := i686-w64-mingw32-g++
+CXX := g++
 CC := $(CXX)
 RM := del
+SHELL := $(ComSpec)
 
-CXXFLAGS := -Wall -Wextra -pedantic -Wabi -Weffc++ -Wold-style-cast \
-	          -Wdouble-promotion -Winit-self -Wmissing-include-dirs \
+CXXFLAGS := -Wall -Wextra -Wpedantic -Weffc++ -Wold-style-cast \
+	          -Wdouble-promotion -Wmissing-include-dirs \
 	          -Woverloaded-virtual -Wsign-promo -Wctor-dtor-privacy \
 	          -Wredundant-decls \
-						-fstrict-enums -fno-nonansi-builtins -fabi-version=0 -std=c++0x \
-						-mconsole -mwin32
+			  -fno-nonansi-builtins -std=c++23 \
+			  -mconsole -mwin32
 
 LDLIBS := libz.a -lshlwapi -lShell32 
 
