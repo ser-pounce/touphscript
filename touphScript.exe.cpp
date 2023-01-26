@@ -36,10 +36,12 @@ int main(int argc, char* argv[]) {
 
 		ts::logger log;
 		ts::conf = ts::config("touphScript.ini", ts::getFFPath());
-		ts::spacing = ts::getSpacingTable();
+
 		
 		if (!ts::conf.path("char_file").empty())
 			ts::ffString::loadCharmap(ts::conf.path("char_file").c_str());
+
+		ts::spacing = ts::getSpacingTable();
 
 		if (mode == 'd') {
 			ts::makeDir(ts::conf.path("text"));
