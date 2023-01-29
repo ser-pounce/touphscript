@@ -186,8 +186,9 @@ string toSceneString(byteVec const& v) {
 	std::ostringstream s;
 	for (auto c = v.cbegin(); *c != end && c < v.cend(); ++c) {
 		if (*c == name) {
-			c += 2;
-			s << toVar("NAME", *c);
+			++c;
+			s << toVar(mapVars.at(10 + *c));
+			++c;
 			continue;
 		}
 		s << text2String(*c);
@@ -214,15 +215,13 @@ byteVec toSceneVec(string const& s) {
 			std::istringstream strs(str);
 			string op;
 			if (strs.good()) strs >> op;
-			if (op == "NAME") {
-				out.push_back(name);
-				out.push_back(0x00);
-				u16 h1 = 0;
-				if (strs.good()) strs >> h1;
-				out.push_back(h1);
-				continue;
-			} else
+			auto pos = std::find(mapVars.begin(), mapVars.end(), op);
+			if (pos == mapVars.end())
 				throw runErr("Unrecognized var");
+			out.push_back(name);
+			out.push_back(0x00);
+			out.push_back(pos - mapVars.begin() - 10);
+			continue;
 		} else
 			out.push_back(stdString2Text(it, s));
 	}

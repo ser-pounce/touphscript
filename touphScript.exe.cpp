@@ -10,6 +10,7 @@
 #include "kernel2.h"
 #include "ff7exe.h"
 #include "windowBin.h"
+#include "field_ids.h"
 #include <array>
 #include <exception>
 #include <map>
@@ -154,8 +155,11 @@ void dumpFlevel() {
 void writeText(script::section0& s, string const& name) {
 	byteVec2d const& text = s.getText();
 	script::getWin g(s);
+
+	char id[5]{};
+	sprintf(id, "%04d", field_ids.at(name));
 	
-	ofstream out(conf.path("text") + name + ".txt");
+	ofstream out(conf.path("text") + id + "_" + name + ".txt");
 	out.exceptions(out.failbit | out.badbit | out.eofbit);
 
 	for (u16 t = 0; t < text.size(); ++t) {
@@ -203,9 +207,17 @@ void writeText(script::section0& s, string const& name) {
 
 void dumpTutorial(string const& name, byteVec const& buf) {
 	try {
-	
+		string filename;
+
+		if (name == "mds7_w.tut")
+			filename = "0149_mds7_w2.tut.txt";
+		else if (name == "mds7pb.tut")
+			filename = "0154_mds7pb_1.tut.txt";
+		else
+			filename = "0378_junpb_2.tut.txt";
+
 		sVec const str = tutorial::toString(buf);
-		ofstream out(conf.path("text") + name + ".txt");
+		ofstream out(conf.path("text") + filename);
 		
 		for (string const& s : str)
 			out << s << '\n'
@@ -404,7 +416,10 @@ void encodeFlevel() {
 }
 
 void readText(script::section0& s, string const& name) {
-	ifstream in(conf.path("text") + name + ".txt");
+
+	char fid[5]{};
+	sprintf(fid, "%04d", field_ids.at(name));
+	ifstream in(conf.path("text") + fid + "_" + name + ".txt");
 	
 	if (!in.is_open() && spacing.size()) {
 		script::autosize a(s, spacing);
@@ -504,7 +519,17 @@ void readText(script::section0& s, string const& name) {
 
 void encodeTutorial(string const& name, byteVec& buf) {
 	try {
-		ifstream in(conf.path("text") + name + ".txt");
+		
+		string filename;
+
+		if (name == "mds7_w.tut")
+			filename = "0149_mds7_w2.tut.txt";
+		else if (name == "mds7pb.tut")
+			filename = "0154_mds7pb_1.tut.txt";
+		else
+			filename = "0378_junpb_2.tut.txt";
+
+		ifstream in(conf.path("text") + filename);
 		
 		if (!in.is_open()) return;
 		

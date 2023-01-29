@@ -129,8 +129,8 @@ byteVec toTutorial(vector<sVec> const& in) {
 
 
 sVec const opNames({
-	"PAUSE", "", "UP", "DOWN", "LEFT", "RIGHT", "MENU", "CANCEL",
-	"", "CONFIRM", "PGUP", "", "PGDOWN"
+	"WAIT", "", "UP", "DOWN", "LEFT", "RIGHT", "MENU", "CANCEL",
+	"SWITCH", "CONFIRM", "SCROLLDOWN", "TARGET", "SCROLLUP", "CAMERA", "PAUSE", "ASSIST"
 });
 
 

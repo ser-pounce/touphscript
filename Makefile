@@ -5,7 +5,7 @@ STRVERSION := 0.6.0
 SOURCES  := $(wildcard *.cpp)
 OBJECTS  := $(SOURCES:.cpp=.o) $(TARGET).res
 
-DEP      := make.dep
+#DEP      := make.dep
 
 CXX := g++
 CC := $(CXX)
