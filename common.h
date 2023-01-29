@@ -68,6 +68,10 @@ inline void removeBOM(ifstream& f) {
 	}
 }
 
+inline void addBOM(ofstream& f) {
+	f.put(static_cast<char>(0xEF)).put(static_cast<char>(0xBB)).put(static_cast<char>(0xBF));
+}
+
 template<typename T>
 inline typename vector<T>::size_type vsize(vector<T> const& v) {
 	return v.size() * sizeof(T);

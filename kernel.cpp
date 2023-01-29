@@ -20,8 +20,14 @@ byteVec2d kernel::getText() const {
 	byteVec2d out;
 	auto const begin = sections[3].cbegin();
 	out.push_back(byteVec(begin + cloud, begin + cloud + 12));
+	out.push_back(byteVec(begin + barrett, begin + barrett + 12));
+	out.push_back(byteVec(begin + tifa, begin + tifa + 12));
+	out.push_back(byteVec(begin + aerith, begin + aerith + 12));
 	out.push_back(byteVec(begin + red13, begin + red13 + 12));
+	out.push_back(byteVec(begin + yuffie, begin + yuffie + 12));
+	out.push_back(byteVec(begin + cait, begin + cait + 12));
 	out.push_back(byteVec(begin + sephiroth, begin + sephiroth + 12));
+	out.push_back(byteVec(begin + cid, begin + cid + 12));
 	return out;
 }
 
@@ -32,8 +38,14 @@ void kernel::setText(byteVec2d& v) {
 	}
 	auto const begin = sections[3].begin();
 	copy(v[0].cbegin(), v[0].cend(), begin + cloud);
-	copy(v[1].cbegin(), v[1].cend(), begin + red13);
-	copy(v[2].cbegin(), v[2].cend(), begin + sephiroth);
+	copy(v[1].cbegin(), v[1].cend(), begin + barrett);
+	copy(v[2].cbegin(), v[2].cend(), begin + tifa);
+	copy(v[3].cbegin(), v[3].cend(), begin + aerith);
+	copy(v[4].cbegin(), v[4].cend(), begin + red13);
+	copy(v[5].cbegin(), v[5].cend(), begin + yuffie);
+	copy(v[6].cbegin(), v[6].cend(), begin + cait);
+	copy(v[7].cbegin(), v[7].cend(), begin + sephiroth);
+	copy(v[8].cbegin(), v[8].cend(), begin + cid);
 }
 
 void kernel::updateBattleTbl(byteVec2d const& scene) {

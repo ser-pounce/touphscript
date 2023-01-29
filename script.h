@@ -205,7 +205,8 @@ private:
 class setWin : public parseFunc {
 public:
 	struct params {
-		u16 x, y, w, h;
+		int16_t x, y;
+		u16 w, h, e;
 		u16 sx, sh;
 		bool center;
 		params(): x(null), y(null), w(null), h(null), sx(null), sh(null), center(false) { }

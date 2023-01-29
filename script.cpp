@@ -365,6 +365,7 @@ void setWin::action() {
 				if (p.x != null) copy(p.x, win + 2);
 				if (p.y != null) copy(p.y, win + 4);
 				if (p.h != null) copy(ffString::pxHeight(p.h), win + 8);
+				if (p.e != null) copy(p.e, win + 8);
 				if (tmpSpecial[wId].size()) {
 					bvit& sp = tmpSpecial[wId].back();
 					if (p.sx != null) sp[3] = p.sx;

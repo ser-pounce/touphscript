@@ -161,6 +161,7 @@ void writeText(script::section0& s, string const& name) {
 	
 	ofstream out(conf.path("text") + id + "_" + name + ".txt");
 	out.exceptions(out.failbit | out.badbit | out.eofbit);
+	addBOM(out);
 
 	for (u16 t = 0; t < text.size(); ++t) {
 	
@@ -218,6 +219,7 @@ void dumpTutorial(string const& name, byteVec const& buf) {
 
 		sVec const str = tutorial::toString(buf);
 		ofstream out(conf.path("text") + filename);
+		addBOM(out);
 		
 		for (string const& s : str)
 			out << s << '\n'
@@ -242,6 +244,7 @@ void dumpWorld() {
 
 		ofstream out(conf.path("text") + "0_mes.txt");
 		out.exceptions(out.failbit | out.badbit | out.eofbit);
+		addBOM(out);
 
 		for (u16 t = 0; t < text.size(); ++t) {
 		
@@ -290,6 +293,7 @@ void dumpScene() {
 	try {
 		byteVec2d const s(scene::toScene(conf.path("scene")));
 		ofstream o(conf.path("text") + "0_scene.bin.txt");
+		addBOM(o);
 
 		for (u16 i = 0; i < s.size(); ++i) {
 		
@@ -315,13 +319,13 @@ void dumpKernel() {
 	try {
 		ofstream o(conf.path("text") + "0_kernel.bin.txt");
 		o.exceptions(o.failbit | o.badbit | o.eofbit);
+		addBOM(o);
 
 		kernel const k(conf.path("kernel"));
 		byteVec2d const text = k.getText();
 
 		for (byteVec const& t : text)
-			o << ffString::toString(t) << '\n'
-				<< delimiter << delimiter << delimiter << '\n';
+			o << ffString::toString(t) << '\n';
 				
 	} catch (runErr const& e) {
 		clog << "Couldn't dump kernel: " << e.what() << '\n';
@@ -332,6 +336,7 @@ void dumpKernel2() {
 	try {
 		ofstream o(conf.path("text") + "0_kernel2.bin.txt");
 		o.exceptions(o.failbit | o.badbit | o.eofbit);
+		addBOM(o);
 
 		vector<byteVec2d> const text(kernel2::toText(conf.path("kernel2")));
 
@@ -352,6 +357,7 @@ void dumpExe() {
 	try {
 		ofstream o(conf.path("text") + "0_ff7.exe.txt");
 		o.exceptions(o.failbit | o.badbit | o.eofbit);
+		addBOM(o);
 
 		ff7exe f(conf.path("exe"));
 
@@ -469,6 +475,9 @@ void readText(script::section0& s, string const& name) {
 					case 'h':
 						winl >> wprms.h;
 						break;
+					case 'e':
+						winl >> wprms.e;
+						break;
 					case 'l':
 						winl >> wprms.sx;
 						break;
@@ -477,6 +486,10 @@ void readText(script::section0& s, string const& name) {
 						break;
 					case 'o':
 						winl >> win.first >> win.last;
+						break;
+					case 'n':
+					case 'm':
+					case 'i':
 						break;
 					default:
 						throw std::ios_base::failure("unknown param");
@@ -753,14 +766,11 @@ void encodeKernel() {
 		byteVec2d text;
 		string line;
 		
-		while (getline(in, line)) {
-		
-			if (line.find(delimiter) != line.npos) continue;
-			
+		while (getline(in, line)) {			
 			text.push_back(ffString::toFFString(line));
 		}
 		
-		if (text.size() != 3) throw runErr("Incorrect number of entries");
+		if (text.size() != 9) throw runErr("Incorrect number of entries");
 		
 		kernel k(conf.path("kernel"));
 		k.setText(text);
