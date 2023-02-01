@@ -37,7 +37,6 @@ void dumpExe();
 void encodeExe();
 
 void vecPatch(byteVec& vec);
-void scriptPatch(string const& name, script::section0& s);
 void insert(byteVec& s, u32 const pos, byteVec&& ins);
 void erase(byteVec& s, u32 const pos, script::opcodes const op);
 void setJmptmp(u8& op);

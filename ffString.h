@@ -69,7 +69,6 @@ extern sVec const funcMap;
 extern sVec charMap;
 extern sVec const mapVars;
 extern sVec const kernel2Vars;
-extern sVec const psButtons;
 
 void loadCharmap(char const* path);
 }

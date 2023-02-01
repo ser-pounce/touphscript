@@ -137,13 +137,12 @@ void dumpFlevel() {
 				vecPatch(f[0]);
 				
 				script::section0 s(f[0]);
-				if (conf[name]) scriptPatch(name, s);
 				if (conf["script_strip"]) script::removeUnused r(s);
 				if (conf["window_patch"]) script::windowPatch w(s);
 				
 				writeText(s, name);
 				
-			} catch (runErr const& e) {
+			} catch (std::exception const& e) {
 				clog << "Error in " << name << ": " << e.what() << '\n';
 			}
 		}
@@ -274,10 +273,10 @@ void dumpWorld() {
 					params << 'h';
 					vals << win->h << ' ';
 				}
-				if (conf["dump_question"] && win->first != globe.null) {
+				/*if (conf["dump_question"] && win->first != globe.null) {
 					params << 'o';
 					vals <<  win->first << ' ' << win->last;
-				}
+				}*/
 				if (vals.tellp())
 					out << params.str() << ' ' << vals.str() << '\n';
 			}
@@ -397,7 +396,6 @@ void encodeFlevel() {
 					vecPatch(f[0]);
 					
 					script::section0 s(f[0]);
-					if (conf[name]) scriptPatch(name, s);
 					if (conf["script_strip"]) script::removeUnused r(s);
 					if (conf["window_patch"]) script::windowPatch w(s);
 					if (conf["text_strip"]) script::textStrip t(s);
@@ -484,9 +482,9 @@ void readText(script::section0& s, string const& name) {
 					case 't':
 						winl >> wprms.sh;
 						break;
-					case 'o':
+					/*case 'o':
 						winl >> win.first >> win.last;
-						break;
+						break;*/
 					case 'n':
 					case 'm':
 					case 'i':
@@ -890,114 +888,6 @@ void vecPatch (byteVec& vec) {
 		break;
 
 	default: break;
-	}
-}
-
-void scriptPatch(string const& name, script::section0& s) {
-
-	byteVec hash(s.getScript());
-	DWORD hashVal = 0;
-	HashData(hash.data(), hash.size(),
-		static_cast<LPBYTE>(static_cast<void*>(&hashVal)), sizeof hashVal);
-		
-	switch (hashVal) {
-	case ealin_2:
-		// Stop script 3 overflow
-		s[0][3].push_back(script::ret);
-		// Add call to main script 4
-		insert(s[14][2], 58, byteVec({script::reqew, 0, (2 << 5) | 4}));
-		break;
-	case chrin_2:
-		// Delete pointless bitset interfering with gonjun1
-		erase(s[0][0], 136, script::biton);
-		break;
-	case kuro_4:
-		// Delete bitset to activate original clock difficulty
-		erase(s[0][0], 0, script::biton);
-		break;
-	case goson:
-		// Change var check to == 1 instead of 10			
-		s[6][1][16] = 1;
-		break;
-	case gongaga:
-		// Change love points check to > 40
-		s[15][3][179] = 40; // tifa
-		s[7][3][78] = 40; // aerith
-		break;
-	case elmin4_2:
-		// Change var check to < 170 to enable third dialogue ((2/3) * 255)
-		s[5][1][46] = 170;			
-		break;
-	case psdun_2:
-		// Change Aerith dialogue to id 9
-		s[5][4][15] = 9;
-		break;
-	case cosin1_1:
-		// Fix Barret infite lovepoints		
-		erase(s[2][1], 149, script::plusx); // Delete LP increment		
-		s[2][1][228] = 6; // Double previous LP bonus
-		break;
-	case games_2:
-		// Set victory conditions
-		s[0][3][710] = 4; // Opponent win
-		s[0][3][913] = 4; // Player win
-		for (int i = 10; i < 13; ++i) // Cloud
-			s[12][i][9] = 4;
-		for (int i = 13; i < 17; ++i) { // Opponents
-			for (int j = 8; j < 10; ++j)
-				s[i][j][9] = 4;
-			s[i][10][13] = 4;
-		}
-		// Set player win to 0
-		insert(s[0][3], 958, byteVec({script::setbyte, 5 << 4, 13, 0}));
-		// Jump to enemy 5 win (i.e. defeated all 4)
-		insert(s[0][3], 962, byteVec({script::jmpb, 100}));		
-		break;
-	case mtcrl_9:
-		// Enable line cutscene
-		erase(s[4][0], 14, script::linon);
-		break;
-	case blin67_2:
-		// Fix Tifa infinite love points, use var [1][226] bit 3
-		insert(s[3][1], 343, byteVec({script::ifub, 1 << 4, 226, 3, 10, 5}));		
-		insert(s[3][1], 349, byteVec({script::biton, 1 << 4, 226, 3}));
-		insert(s[3][1], 376, byteVec({script::ifub, 1 << 4, 226, 3, 10, 5}));		
-		insert(s[3][1], 382, byteVec({script::biton, 1 << 4, 226, 3}));			
-		break;
-	case elminn_1:
-		// Add extra Barret script call
-		insert(s[3][3], 97, byteVec({script::reqew, 6, (6 << 5) | 6}));
-		break;
-	case min51_1:
-		// Change tv text triggers
-		copy(u16(1195), s[7][1].begin() + 82);
-		copy(u16(1382), s[7][1].begin() + 105);
-		copy(u16(1569), s[7][1].begin() + 141);
-		break;
-	case lastmap:
-		// Fix movie end
-		copy(u16(120), s[18][6].begin() + 47);
-		break;
-	case frcyo:
-		// Modify question vars in case they need to be changed
-		s[5][1][3387] = 19;
-		s[5][1][3390] = 19;
-		s[6][1][1342] = 19;
-		s[6][1][1345] = 19;
-		s[6][1][1359] = 19;
-		s[6][1][1370] = 19;
-		s[6][1][3261] = 19;
-		s[6][1][3264] = 19;
-		break;
-	case fship_4:
-		// Reenable menu access after talking to Yuffie
-		erase(s[14][1], 471, script::ret);
-		insert(s[14][1], 471, byteVec({script::menu2, 0}));
-		break;
-		
-	default:
-		clog << name << " patch failed, not original script\n";
-		break;
 	}
 }
 

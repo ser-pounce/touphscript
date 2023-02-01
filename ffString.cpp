@@ -165,13 +165,7 @@ byteVec stdString2Func(string op, sCit& it, string const& s) {
 			ffText.push_back(distance(mapVars.cbegin(), f) + choice);
 			return ffText;
 		}
-                
-        /*        f = find(psButtons.cbegin(), psButtons.cend(), op);	
-	        if (f != psButtons.cend()) {
-		        ffText.push_back(distance(psButtons.cbegin(), f) + 0x80);
-                        return ffText;
-                }
-		*/
+
 		f = find(charMap.cbegin(), charMap.cend(), "{" + op + "}");
 		if (f != charMap.cend()) {
 			ffText.push_back(distance(charMap.cbegin(), f));
@@ -264,12 +258,7 @@ byteVec toKernel2Vec(string const& s) {
 			std::istringstream strs(str);
 			string op;
 			if (strs.good()) strs >> op;
-                        auto psbutton = std::find(psButtons.begin(),
-                            psButtons.end(), op);
-                        if (psbutton != psButtons.end())
-                          text.push_back(distance(psButtons.begin(), psbutton) +
-                              0x80);
-                        else if (op == "RED") {
+			if (op == "RED") {
 				text.push_back(0xF8);
 				text.push_back(0x02);
 			} else {
@@ -381,13 +370,6 @@ sVec charMap({
 sVec const mapVars({
 	"CHOICE", "", "", "", "", "", "", "", "", "", "CLOUD", "BARRET", "TIFA", "AERIS", "RED XIII", "YUFFIE",
 	"CAIT SITH", "VINCENT", "CID", "PARTY #1", "PARTY #2", "PARTY #3"
-});
-
-sVec const psButtons({
-  "", "SEL", "STA", "", "", "", "", "", "", "", "", "", "", "", "", "",
-  "", "", "", "L", "R", "X", "S", "T", "C", "L1", "R1", "L2", "R2", "", "", "",
-  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-  "", "", "", "", "", "", "", "", "", "", "", "", "", "", "U", "D"
 });
 
 sVec const kernel2Vars({
