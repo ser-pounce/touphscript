@@ -17,7 +17,7 @@ sVec toString(byteVec const& in) {
 			}
 			switch (*op) {
 			case pause:
-				s << ffString::toVar("PAUSE", get<u16>(sec, ++op)) << '\n';
+				s << ffString::toVar("WAIT", get<u16>(sec, ++op)) << '\n';
 				op += 2;
 				break;
 			case text: {
@@ -77,7 +77,7 @@ byteVec toTutorial(vector<sVec> const& in) {
 				std::istringstream opss(op);
 				string str;
 				if (!opss.eof()) opss >> str;
-				if (str == "PAUSE") {
+				if (str == "WAIT") {
 					tmp.back().push_back(pause);
 					u16 h1 = 0;
 					if (opss.good()) opss >> h1;

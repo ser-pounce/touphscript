@@ -279,7 +279,7 @@ void getWin::action() {
 			}
 			case wsizw:
 			case fwindow: {
-				vector<params>& pvec = tmpWindows[op[1]];
+				vector<params>& pvec = tmpWindows.at(op[1]);
 				if (!pvec.size() || pvec.back().x != null)
 					pvec.push_back(params());
 				params& win = pvec.back();
@@ -667,7 +667,7 @@ byteVec const opSizes({
 	11,	8, 15, 12, 1, 3, 3, 2, 2, 2, 4, 3, 3, 3, 2, 2,
 	13,	2, 2, 16, 10, 10,	4, 4, 3, 1, 15, 2, 4, 1, 1, 11,
 	4, 4, 3, 3, 3, 5, 5, 5, 7, 10, 10, 5, 5, 8, 8, 11,
-	2, 5, 14, 2, 2, 2, 2, 4, 2, 1, 3, 2, 2, 6, 3, 1
+	2, 5, 14, 2, 2, 2, 2, 4, 2, 1, 3, 2, 2, 8, 3, 1
 });
 
 byteVec const spOpSizes({

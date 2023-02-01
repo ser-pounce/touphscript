@@ -184,7 +184,8 @@ public:
 	static u16 const null = 0xFFFF;
 
 	struct params {
-		u16 x, y, w, h;
+		int16_t x, y;
+		u16 w, h;
 		u16 sx, sh;
 		params(): x(null), y(null), w(null), h(null), sx(null), sh(null) { }
 	};

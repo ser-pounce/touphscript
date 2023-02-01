@@ -38,7 +38,7 @@ string stdFunc2String(bvCit& c) {
 switch (*c) {
 	case pause: {
 		u16 i = *++c | *++c << 8;
-		return toVar("PAUSE", i);
+		return toVar("WAIT", i);
 		}
 	case mem3: {
 		u16 i = *++c | *++c << 8;
@@ -128,7 +128,7 @@ byteVec stdString2Func(string op, sCit& it, string const& s) {
 	std::istringstream opss(op);
 	string str;
 	if (!opss.eof()) opss >> str;
-	if (str == "PAUSE") {
+	if (str == "WAIT") {
 		ffText.push_back(func);
 		ffText.push_back(pause);
 		u16 h1 = 0;
