@@ -197,8 +197,8 @@ void writeText(script::section0& s, string const& name) {
 			}
 			if (vals.tellp()) out << params.str() << ' ' << vals.str() << '\n';
 		}
-		if (conf["dump_question"] && windows.first != g.null)
-			out << "#o " << windows.first << ' ' << windows.last << '\n';
+		/*if (conf["dump_question"] && windows.first != g.null)
+			out << "#o " << windows.first << ' ' << windows.last << '\n';*/
 
 		out << ffString::toString(text[t]) << '\n'
 				<< delimiter << delimiter << delimiter << '\n';
