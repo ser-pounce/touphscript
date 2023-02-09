@@ -210,7 +210,7 @@ public:
 		u16 w, h, e;
 		u16 sx, sh;
 		bool center;
-		params(): x(null), y(null), w(null), h(null), sx(null), sh(null), center(false) { }
+		params(): x(null), y(null), w(null), h(null), e(null), sx(null), sh(null), center(false) { }
 	};
 	struct window {
 		vector<params> p;

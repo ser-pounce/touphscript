@@ -241,7 +241,7 @@ void dumpWorld() {
 		vector<world::event::window> const gwindows(glacier.getWindows());
 		windows.insert(windows.end(), gwindows.begin(), gwindows.end());
 
-		ofstream out(conf.path("text") + "0_mes.txt");
+		ofstream out(conf.path("text") + "World.txt");
 		out.exceptions(out.failbit | out.badbit | out.eofbit);
 		addBOM(out);
 
@@ -291,7 +291,7 @@ void dumpWorld() {
 void dumpScene() {
 	try {
 		byteVec2d const s(scene::toScene(conf.path("scene")));
-		ofstream o(conf.path("text") + "0_scene.bin.txt");
+		ofstream o(conf.path("text") + "Scene.bin.txt");
 		addBOM(o);
 
 		for (u16 i = 0; i < s.size(); ++i) {
@@ -316,7 +316,7 @@ void dumpScene() {
 
 void dumpKernel() {
 	try {
-		ofstream o(conf.path("text") + "0_kernel.bin.txt");
+		ofstream o(conf.path("text") + "Kernel.bin.txt");
 		o.exceptions(o.failbit | o.badbit | o.eofbit);
 		addBOM(o);
 
@@ -333,7 +333,7 @@ void dumpKernel() {
 
 void dumpKernel2() {
 	try {
-		ofstream o(conf.path("text") + "0_kernel2.bin.txt");
+		ofstream o(conf.path("text") + "Kernel2.bin.txt");
 		o.exceptions(o.failbit | o.badbit | o.eofbit);
 		addBOM(o);
 
@@ -354,7 +354,7 @@ void dumpKernel2() {
 
 void dumpExe() {
 	try {
-		ofstream o(conf.path("text") + "0_ff7.exe.txt");
+		ofstream o(conf.path("text") + "Exe.txt");
 		o.exceptions(o.failbit | o.badbit | o.eofbit);
 		addBOM(o);
 
@@ -567,7 +567,7 @@ void encodeTutorial(string const& name, byteVec& buf) {
 
 void encodeWorld() {
 	try {
-		ifstream in(conf.path("text") + "0_mes.txt");
+		ifstream in(conf.path("text") + "World.txt");
 		ilgp lin(conf.path("world"));
 		
 		world::event globe(lin["wm0.ev"]);
@@ -623,7 +623,7 @@ void encodeWorld() {
 							}
 							
 					} catch (std::ios_base::failure const& e) {
-						clog 	<< "Error reading params in 0_mes.txt entry " << id << '\n';
+						clog 	<< "Error reading params in World.txt entry " << id << '\n';
 					}
 					
 				} else if (line.find(delimiter) != line.npos) {
@@ -686,7 +686,7 @@ void encodeWorld() {
 void encodeScene() {
 	try {
 	
-		ifstream in(conf.path("text") + "0_scene.bin.txt");
+		ifstream in(conf.path("text") + "Scene.bin.txt");
 		if (!in.is_open()) return;
 		removeBOM(in);
 
@@ -757,7 +757,7 @@ void encodeScene() {
 
 void encodeKernel() {
 	try {
-		ifstream in(conf.path("text") + "0_kernel.bin.txt");
+		ifstream in(conf.path("text") + "Kernel.bin.txt");
 		if (!in.is_open()) return;
 		removeBOM(in);
 
@@ -785,7 +785,7 @@ void encodeKernel() {
 
 void encodeKernel2() {
 	try {
-		ifstream in(conf.path("text") + "0_kernel2.bin.txt");
+		ifstream in(conf.path("text") + "Kernel2.bin.txt");
 		
 		if (!in.is_open()) return;
 		
@@ -840,7 +840,7 @@ void encodeKernel2() {
 
 void encodeExe() {
 	try {
-		ifstream in(conf.path("text") + "0_ff7.exe.txt");
+		ifstream in(conf.path("text") + "Exe.txt");
 		
 		if (!in.is_open()) return;
 		

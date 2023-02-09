@@ -180,9 +180,8 @@ string toSceneString(byteVec const& v) {
 	std::ostringstream s;
 	for (auto c = v.cbegin(); *c != end && c < v.cend(); ++c) {
 		if (*c == name) {
-			++c;
+			c += 2;
 			s << toVar(mapVars.at(10 + *c));
-			++c;
 			continue;
 		}
 		s << text2String(*c);
@@ -363,6 +362,7 @@ sVec const funcMap({
 });
 
 sVec charMap({
+	"", "", "", "", "", "", "", "", "", "", "", "", "", "",
 	"{CHOICE}", "\t", ", ", ".\"", "…\"", "", "", "\n", "{NEW}", "", "{CLOUD}", "{BARRET}", "{TIFA}", "{AERIS}", "{RED XIII}", "{YUFFIE}",
 	"{CAIT SITH}", "{VINCENT}", "{CID}", "{PARTY #1}", "{PARTY #2}", "{PARTY #3}", "〇", "△", "☐", "✕", "", "", "", "", "", ""
 });
