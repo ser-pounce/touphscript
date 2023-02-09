@@ -2,6 +2,10 @@
 
 namespace ts {
 
+	
+int config::rowH1{16};
+int config::rowH2{9};
+
 config::config(string const& file, string const& FFpath):
 opReg(), nameReg(nameKeys.size(), "OOOOOOOOO"), pathReg(), spacingTable(256) {
 	pathReg["text"]			= ".\\text\\";
@@ -50,9 +54,13 @@ opReg(), nameReg(nameKeys.size(), "OOOOOOOOO"), pathReg(), spacingTable(256) {
 		} else if (key == "tab") {
 			tab = std::stoi(value);
 			opReg["tab"] = true;
-		} else if (key == "box_padding") {
+		} else if (key == "box_width_padding") {
 			padding = std::stoi(value);
 			opReg["padding"] = true;
+		} else if (key == "box_height_part_1") {
+			rowH1 = std::stoi(value);
+		} else if (key == "box_height_part_2") {
+			rowH2 = std::stoi(value);
 		} else if (find(keys.begin(), keys.end(), key) != keys.end()) {
 			opReg[key] = (value == "1" || value == "true");
 		} else if (find(paths.begin(), paths.end(), key) != paths.end()) {

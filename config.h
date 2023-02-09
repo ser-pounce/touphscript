@@ -32,6 +32,8 @@ public:
 	static int tab;
 	static int max;
 	static int padding;
+	static int rowH1;
+	static int rowH2;
 
 private:
 	static sVec const keys;

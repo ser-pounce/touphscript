@@ -2,6 +2,7 @@
 #define TOUPHSCRIPT_FFSTRING
 
 #include "common.h"
+#include "config.h"
 
 namespace ts {
 namespace ffString {
@@ -24,11 +25,11 @@ u8 stdString2Text(sCit& it, string const& s);
 u16 width(byteVec const& v, byteVec const& spacing);
 u16 height(byteVec const& v);
 inline u8 lineHeight(u16 const height) {
-	u8 nh = (height - 9) / 16;
+	u8 nh = (height - config::rowH2) / config::rowH1;
 	return nh > 13 ? 13 : nh;
 }
 inline u16 pxHeight(u16 const height) {
-	u16 nh = height * 16 + 9;
+	u16 nh = height * config::rowH1 + config::rowH2;
 	return nh > 217 ? 217 : nh;
 }
 

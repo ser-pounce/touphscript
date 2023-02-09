@@ -1,4 +1,5 @@
 #include "ffstring.h"
+#include "config.h"
 #include <cmath>
 
 namespace ts {
@@ -353,7 +354,7 @@ u16 height(byteVec const& v) {
 	}
 	if (h > nh) nh = h;
 	if (nh > 13) nh = 13; // Max rows = 13
-	return (nh * 16) + 9; // Row height calculation
+	return (nh * config::rowH1) + config::rowH2; // Row height calculation
 }
 
 sVec const funcMap({

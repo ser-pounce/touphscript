@@ -291,7 +291,7 @@ void dumpWorld() {
 void dumpScene() {
 	try {
 		byteVec2d const s(scene::toScene(conf.path("scene")));
-		ofstream o(conf.path("text") + "Scene.bin.txt");
+		ofstream o(conf.path("text") + "Scene.txt");
 		addBOM(o);
 
 		for (u16 i = 0; i < s.size(); ++i) {
@@ -316,7 +316,7 @@ void dumpScene() {
 
 void dumpKernel() {
 	try {
-		ofstream o(conf.path("text") + "Kernel.bin.txt");
+		ofstream o(conf.path("text") + "Kernel.txt");
 		o.exceptions(o.failbit | o.badbit | o.eofbit);
 		addBOM(o);
 
@@ -333,7 +333,7 @@ void dumpKernel() {
 
 void dumpKernel2() {
 	try {
-		ofstream o(conf.path("text") + "Kernel2.bin.txt");
+		ofstream o(conf.path("text") + "Kernel2.txt");
 		o.exceptions(o.failbit | o.badbit | o.eofbit);
 		addBOM(o);
 
@@ -686,7 +686,7 @@ void encodeWorld() {
 void encodeScene() {
 	try {
 	
-		ifstream in(conf.path("text") + "Scene.bin.txt");
+		ifstream in(conf.path("text") + "Scene.txt");
 		if (!in.is_open()) return;
 		removeBOM(in);
 
@@ -757,7 +757,7 @@ void encodeScene() {
 
 void encodeKernel() {
 	try {
-		ifstream in(conf.path("text") + "Kernel.bin.txt");
+		ifstream in(conf.path("text") + "Kernel.txt");
 		if (!in.is_open()) return;
 		removeBOM(in);
 
@@ -785,7 +785,7 @@ void encodeKernel() {
 
 void encodeKernel2() {
 	try {
-		ifstream in(conf.path("text") + "Kernel2.bin.txt");
+		ifstream in(conf.path("text") + "Kernel2.txt");
 		
 		if (!in.is_open()) return;
 		
