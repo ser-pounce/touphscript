@@ -53,7 +53,10 @@ hdr(), entNms(), akaoBlks(), scripts(), text(), pcs(), mods(), locs() {
 
 		u8 ofstSz = sizeof(u16);
 		auto const txtBegin = begin + hdr.strOfst;
-		vec16 txtOfsts((get<u16>(buf, txtBegin + ofstSz) - ofstSz) / ofstSz);
+		auto firstOffset = get<u16>(buf, txtBegin + ofstSz);
+		if (!firstOffset)
+			return;
+		vec16 txtOfsts((firstOffset - ofstSz) / ofstSz);
 		copy(buf, txtBegin + ofstSz, txtOfsts);
 		txtOfsts.push_back(akOfsts[0] - hdr.strOfst); // End relative to table
 

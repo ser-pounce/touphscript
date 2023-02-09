@@ -25,7 +25,7 @@ all: $(TARGET)
 static: LDFLAGS += -static
 static: all
 
-debug: CXXFLAGS += -g -Og
+debug: CXXFLAGS += -ggdb
 debug: $(TARGET)
 
 profile: CXXFLAGS += -pg -O3
